@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Cartita Secreta ❤️</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background: url('portada.png') no-repeat center center fixed;
+    background-size: cover;
+  }
+  .card {
+    background: rgba(255,255,255,0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 500px;
+    position: relative;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  h1 { color: #e91e63; }
+  p { font-size: 18px; color: #555; }
+  .preview-images { display: flex; justify-content: space-around; margin-top: 20px; }
+  .preview-images img { width: 100px; height: 100px; border-radius: 15px; }
+  #passwordInput { margin-top: 20px; padding: 10px; font-size: 16px; border-radius: 10px; border: 1px solid #ccc; }
+  #unlockBtn { margin-top: 10px; padding: 10px 20px; font-size: 16px; border: none; border-radius: 10px; background-color: #e91e63; color: white; cursor: pointer; }
+
+  /* Texto explosión */
+  .explosion { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 28px; font-weight: bold; color: #ff4081; text-align: center; opacity: 0; animation: explode 2s forwards; }
+  @keyframes explode { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2) rotate(10deg); } 70% { transform: translate(-50%, -50%) scale(1) rotate(-5deg); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); } }
+
+  /* Corazones flotantes con imagen */
+  .heart { position: absolute; background-size: contain; background-repeat: no-repeat; animation: float 4s infinite; }
+  @keyframes float { 0% {transform: translateY(0); opacity:1;} 100% {transform: translateY(-500px); opacity:0;} }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+     <h1>❤️FELIZ ANIVERSARIO AMORCITO❤️</h1>
+    <h1>Un pequeño secreto para ti ❤️</h1>
+    <p>Hoy quiero recordarte lo especial que eres para mí y lo afortunado que me siento de tenerte en mi vida, sepa que Yo Gané mas que un millon de dolares.</p>
+   
+
+  <div class="preview-images">
+    <img src="1.jpeg" alt="Oso 1">
+    <img src="2.jpeg" alt="Oso 2">
+    <img src="3.jpeg" alt="Oso 3">
+    <img src="4.jpeg" alt="Oso 4">
+  </div>
+</div>
+
+<input type="password" id="passwordInput" placeholder="Ingresa la contraseña">
+<button id="unlockBtn">Abrir Cartita</button>
+<div id="hearts" class="hearts"></div>
+
+<script>
+const card = document.getElementById('card');
+const passwordInput = document.getElementById('passwordInput');
+const unlockBtn = document.getElementById('unlockBtn');
+const heartsContainer = document.getElementById('hearts');
+const correctPassword = 'SCPL';
+const images = ['1.jpeg','2.jpeg','3.jpeg','4.jpeg'];
+
+unlockBtn.addEventListener('click', () => {
+  if(passwordInput.value === correctPassword){
+    card.style.display = 'none';
+    passwordInput.style.display = 'none';
+    unlockBtn.style.display = 'none';
+
+    // Explosión de letras
+    const explosionText = document.createElement('div');
+    explosionText.classList.add('explosion');
+    explosionText.textContent = '¡Eres lo mejor que me pasó en la vida! ❤️\n !!!! CONQUISTE TU AMOR....!!!!! ❤️';
+    document.body.appendChild(explosionText);
+
+    // Explosión de imágenes flotantes más grandes
+    for(let i=0;i<50;i++){
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        const img = images[Math.floor(Math.random()*images.length)];
+        heart.style.backgroundImage = `url(${img})`;
+        heart.style.width = '120px';    // Tamaño más grande
+        heart.style.height = '120px';   // Tamaño más grande
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.top = Math.random() * window.innerHeight + 'px';
+        heart.style.animationDuration = 2 + Math.random()*3 + 's';
+        heartsContainer.appendChild(heart);
+        setTimeout(()=>{heart.remove()},4000);
+      }, i*50);
+    }
+
+  } else {
+    alert('Contraseña incorrecta Mi Amor 😢');
+  }
+});
+</script>
+
+</body>
+</html>
